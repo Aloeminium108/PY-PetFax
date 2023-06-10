@@ -5,8 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PetFax</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+  <h1>Submit a Pet Fact</h1>
   <form action="/facts/new" method="post">
     <label for="submitter">Name:</label><br>
     <input type="text" id="submitter" name="submitter"><br>
