@@ -1,13 +1,23 @@
 from flask import ( Blueprint, redirect, render_template, request ) 
+from . import models
 
 bp = Blueprint('facts', __name__, url_prefix="/facts")
 
 @bp.route('/', methods=['POST', 'GET'])
 def index():
   if request.method == 'GET':
-    return render_template('facts/index.html')
+    results = models.Fact.query.all()
+
+    return render_template('facts/index.html', facts=results)
+  
   if request.method == 'POST':
-    print(request.form)
+    submitter = request.form['submitter']
+    fact = request.form['fact']
+
+    new_fact = models.Fact(submitter=submitter, fact=fact)
+    models.db.session.add(new_fact)
+    models.db.session.commit()
+
     return redirect('/facts')
 
 
